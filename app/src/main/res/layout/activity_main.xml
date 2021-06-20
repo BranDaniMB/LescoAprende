@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/app_logo" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/listen"
         android:layout_width="230dp"
         android:layout_height="230dp"
@@ -37,7 +37,6 @@
 
     <Button
         android:id="@+id/dictionary"
-        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
