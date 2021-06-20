@@ -7,4 +7,7 @@
     <string name="gesture_details">Detalles del gesto</string>
     <string name="kitchen_phrase_1">¿Quieres más?</string>
     <string name="kitchen_phrase_2">*Ingrese frase*</string>
+
+    <!-- Keys -->
+    <string name="day_key">day_key</string>
 </resources>
