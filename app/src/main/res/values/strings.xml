@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">LescoAprende</string>
-    <string name="diccionary">Diccionario</string>
+    <string name="dictionary">Diccionario</string>
     <string name="about_us">Acerca de</string>
+    <string name="phrase_details">Detalles de frase/palabra</string>
+    <string name="gesture_visuals">Visualiza el gesto</string>
+    <string name="gesture_details">Detalles del gesto</string>
+    <string name="kitchen_phrase_1">¿Quieres más?</string>
+    <string name="kitchen_phrase_2">*Ingrese frase*</string>
 </resources>
