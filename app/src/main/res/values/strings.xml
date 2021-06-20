@@ -2,4 +2,7 @@
     <string name="app_name">LescoAprende</string>
     <string name="diccionary">Diccionario</string>
     <string name="about_us">Acerca de</string>
+
+    <!-- Keys -->
+    <string name="day_key">day_key</string>
 </resources>
