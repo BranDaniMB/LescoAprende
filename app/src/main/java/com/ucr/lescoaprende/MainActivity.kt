@@ -17,6 +17,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun sendPhrase(view: View) {
+        val intent = Intent(this, PhraseDetails::class.java)
+        startActivity(intent)
+    }
+
+    fun sendDictionary(view: View) {
         val intent = Intent(this, Dictionary::class.java)
         startActivity(intent)
     }
