@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun sendPhrase(view: View) {
-        val intent = Intent(this, PhraseDetails::class.java)
+    fun sendAboutUs(view: View) {
+        val intent = Intent(this, AboutUs::class.java)
         startActivity(intent)
     }
 
