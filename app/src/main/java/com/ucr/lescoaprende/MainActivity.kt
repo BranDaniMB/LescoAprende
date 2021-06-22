@@ -1,9 +1,11 @@
 package com.ucr.lescoaprende
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,6 +14,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    fun sendPhrase(view: View) {
+        val intent = Intent(this, Dictionary::class.java)
+        startActivity(intent)
     }
 
     private fun validateDayTip() {

@@ -24,10 +24,6 @@
         android:layout_height="230dp"
         android:background="@drawable/listen_button"
         android:gravity="center"
-        app:icon="@drawable/ic_baseline_mic_none_24"
-        app:iconGravity="textStart"
-        app:iconPadding="0dp"
-        app:iconSize="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -57,6 +53,7 @@
 
     <Button
         android:id="@+id/about_us"
+        android:onClick="sendPhrase"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
