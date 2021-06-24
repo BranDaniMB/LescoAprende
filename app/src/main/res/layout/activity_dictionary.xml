@@ -8,16 +8,18 @@
     tools:context=".Dictionary">
 
     <TextView
-        android:id="@+id/tiitle"
-        android:layout_width="413dp"
-        android:layout_height="44dp"
+        android:id="@+id/dictionaryTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/blue_primary"
         android:gravity="center"
-        android:text="DICCIONARIO"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/dictionary"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -26,60 +28,66 @@
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/chef"
-        android:layout_width="413dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="1dp"
+        android:id="@+id/dictionarySectionKitchen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/blue_tertiary"
         android:gravity="center"
-        android:text="Cocina"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/dictionary_section_kitchen"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textColorHighlight="@color/white"
         android:visibility="visible"
+        android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tiitle" />
+        app:layout_constraintTop_toBottomOf="@+id/dictionaryTitle" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="411dp"
-        android:layout_height="202dp"
-        android:background="@color/white"
+        android:id="@+id/dictionaryKitchenList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
         android:textDirection="firstStrongRtl"
-        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chef"
+        app:layout_constraintTop_toBottomOf="@+id/dictionarySectionKitchen"
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/miscellaneous"
-        android:layout_width="413dp"
-        android:layout_height="44dp"
+        android:id="@+id/dictionarySectionMiscellaneous"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:background="@color/blue_tertiary"
         android:gravity="center"
-        android:text="Misceláneo"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/dictionary_section_miscellaneous"
         android:textAlignment="center"
         android:textColor="@color/white"
+        android:textSize="17sp"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@+id/dictionaryKitchenList"
         tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="411dp"
-        android:layout_height="202dp"
-        android:layout_marginTop="3dp"
-        android:background="@color/white"
+        android:id="@+id/dictionaryMiscellaneousList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/miscellaneous" />
+        app:layout_constraintTop_toBottomOf="@+id/dictionarySectionMiscellaneous"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,13 +1,21 @@
 <resources>
     <string name="app_name">LescoAprende</string>
-    <string name="dictionary">Diccionario</string>
-    <string name="about_us">Acerca de</string>
     <string name="phrase_details">Detalles de frase/palabra</string>
     <string name="gesture_visuals">Visualiza el gesto</string>
     <string name="gesture_details">Detalles del gesto</string>
     <string name="kitchen_phrase_1">¿Quieres más?</string>
     <string name="kitchen_phrase_2">*Ingrese frase*</string>
-
     <!-- Keys -->
     <string name="day_key">day_key</string>
+    <!-- About Us -->
+    <string name="about_us">Acerca de</string>
+    <string name="about_us_title">¿Quiénes somos?</string>
+    <string name="about_us_subtitle_authors">Desarrolladores</string>
+    <string name="about_us_authors">Jahel Jiménez\nBrandon Masís\nMaría Ramírez\nCarlos Cabezas\nDenilson Granados</string>
+    <string name="about_us_content">LescoAprende es una aplicación desarrollada por estudiantes de la Universidad de Costa Rica, con la finalidad de ayudar al personal de la Escuela Alice Rodríguez Moya, en su labor de integrar a las personas sordas.</string>
+    <string name="about_us_licence">TecnOllita™, 2021</string>
+    <!-- Dictionary -->
+    <string name="dictionary">Diccionario</string>
+    <string name="dictionary_section_kitchen">Cocina</string>
+    <string name="dictionary_section_miscellaneous">Misceláneo</string>
 </resources>
