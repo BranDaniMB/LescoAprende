@@ -7,7 +7,7 @@
     tools:context=".PhraseDetails">
 
     <TextView
-        android:id="@+id/tittle"
+        android:id="@+id/PhraseDetailsTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/subtitle"
+        android:id="@+id/PhraseDetailsName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -37,70 +37,71 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tittle" />
+        app:layout_constraintTop_toBottomOf="@+id/PhraseDetailsTitle" />
 
     <TextView
-        android:id="@+id/gesture_visuals"
+        android:id="@+id/PhraseDetailsVideoTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/gesture_visuals"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/gesture_visuals_video"
+        app:layout_constraintBottom_toTopOf="@+id/PhraseDetailsVideo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/subtitle"
+        app:layout_constraintTop_toBottomOf="@+id/PhraseDetailsName"
         app:layout_constraintVertical_bias="0.0" />
 
     <VideoView
-        android:id="@+id/gesture_visuals_video"
+        android:id="@+id/PhraseDetailsVideo"
         android:layout_width="339dp"
         android:layout_height="229dp"
         android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/gesture_details"
+        app:layout_constraintBottom_toTopOf="@+id/PhraseDetailsSubtitleDetails"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gesture_visuals" />
+        app:layout_constraintTop_toBottomOf="@+id/PhraseDetailsVideoTitle" />
 
     <TextView
-        android:id="@+id/gesture_details"
+        android:id="@+id/PhraseDetailsSubtitleDetails"
         android:layout_width="wrap_content"
         android:layout_height="23dp"
         android:text="@string/gesture_details"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="17sp"
-        app:layout_constraintBottom_toTopOf="@+id/Tip"
+        app:layout_constraintBottom_toTopOf="@+id/PhraseDetailsTip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gesture_visuals_video"
+        app:layout_constraintTop_toBottomOf="@+id/PhraseDetailsVideo"
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/Tip"
+        android:id="@+id/PhraseDetailsTip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="Tip"
-        app:layout_constraintBottom_toTopOf="@+id/tip_span"
+        app:layout_constraintBottom_toTopOf="@+id/PhraseDetailsTipSpan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gesture_details"
+        app:layout_constraintTop_toBottomOf="@+id/PhraseDetailsSubtitleDetails"
         app:srcCompat="@drawable/googleg_standard_color_18"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/tip_span"
+        android:id="@+id/PhraseDetailsTipSpan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:padding="10dp"
+        android:padding="20dp"
+        android:textAlignment="center"
         android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus tincidunt augue sit amet sagittis gravida. Praesent lacus risus, tristique in accumsan id, cursus eu orci. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam felis nisi, accumsan vel iaculis et, tincidunt vitae nulla. Duis dignissim viverra eleifend. Duis vestibulum quam nec euismod dapibus."
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Tip" />
+        app:layout_constraintTop_toBottomOf="@+id/PhraseDetailsTip" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

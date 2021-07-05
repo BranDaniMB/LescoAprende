@@ -1,7 +1,9 @@
 package com.ucr.lescoaprende
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ucr.lescoaprende.database.Database
@@ -21,33 +23,33 @@ class Dictionary : AppCompatActivity() {
         dictionaryKitchenList = findViewById(R.id.dictionaryKitchenList)
         dictionaryMiscellaneousList = findViewById(R.id.dictionaryMiscellaneousList)
 
-        generateLists()
+        generateLists(applicationContext, this)
     }
 
-    private fun generateLists() {
-        generateListKitchen()
-        generateListMiscellaneous()
+    private fun generateLists(context: Context, activity: AppCompatActivity) {
+        generateListKitchen(context, activity)
+        generateListMiscellaneous(context, activity)
     }
 
-    private fun generateListKitchen() {
+    private fun generateListKitchen(context: Context, activity: AppCompatActivity) {
         val temp: ArrayList<WordDetails> = ArrayList()
         for (word in DatabaseRef.wordDetails) {
             if (word.type === WordClass.KITCHEN) {
                 temp.add(word);
             }
         }
-        dictionaryKitchenList.adapter = DictionaryCustomAdapter(temp)
+        dictionaryKitchenList.adapter = DictionaryCustomAdapter(temp, context, activity)
         dictionaryKitchenList.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun generateListMiscellaneous() {
+    private fun generateListMiscellaneous(context: Context, activity: AppCompatActivity) {
         val temp: ArrayList<WordDetails> = ArrayList()
         for (word in DatabaseRef.wordDetails) {
             if (word.type === WordClass.MISCELLANEOUS) {
                 temp.add(word);
             }
         }
-        dictionaryMiscellaneousList.adapter = DictionaryCustomAdapter(temp)
+        dictionaryMiscellaneousList.adapter = DictionaryCustomAdapter(temp, context, activity)
         dictionaryMiscellaneousList.layoutManager = LinearLayoutManager(this)
     }
 }

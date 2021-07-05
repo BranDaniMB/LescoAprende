@@ -15,13 +15,13 @@ enum class WordClass() {
     KITCHEN, MISCELLANEOUS
 }
 
-data class DayTips(val image: Image, val tip: String)
+data class DayTips(var image: Image, var tip: String)
 data class WordDetails(
-    val type: WordClass,
-    val name: String?,
-    val video: MediaStore.Video?,
-    val image: Image?,
-    val description: String?
+    var type: WordClass,
+    var name: String?,
+    var video: MediaStore.Video?,
+    var image: Image?,
+    var description: String?
 )
 
 class Database() : Application() {
@@ -61,7 +61,6 @@ class Database() : Application() {
     private fun chargeWordDetails() {
         val wordVideoRef: StorageReference? = storageRef.child("video")
         val wordImageRef: StorageReference? = storageRef.child("imagen")
-        // Obtener palabras de Kitchen
         val wordDescriptionRef = rtDatabase.getReference("video")
         wordDescriptionRef.get().addOnSuccessListener {
             wordDetails = ArrayList();

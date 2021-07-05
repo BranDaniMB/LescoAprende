@@ -18,4 +18,7 @@
     <string name="dictionary">Diccionario</string>
     <string name="dictionary_section_kitchen">Cocina</string>
     <string name="dictionary_section_miscellaneous">Misceláneo</string>
+    <!-- Tip for day -->
+    <string name="tip_day_title">Consejo del día</string>
+    <string name="tip_day_button">¡Entendido!</string>
 </resources>

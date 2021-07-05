@@ -3,19 +3,117 @@ package com.ucr.lescoaprende
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.speech.RecognitionListener
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
-import com.google.firebase.FirebaseApp
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class MainActivity : AppCompatActivity() {
+    private lateinit var listenButton: Button;
+    private lateinit var speechRecognizer: SpeechRecognizer
+    private lateinit var speechRecognizerIntent: Intent;
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_LescoAprende)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.RECORD_AUDIO
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            checkPermission()
+        }
+        speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+        speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        speechRecognizerIntent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        );
+        speechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
+
+        speechRecognizer.setRecognitionListener(object : RecognitionListener {
+            override fun onReadyForSpeech(params: Bundle?) {}
+
+            override fun onBeginningOfSpeech() {
+                Toast.makeText(baseContext, "Escuchando...", Toast.LENGTH_SHORT).show();
+            }
+
+            override fun onRmsChanged(rmsdB: Float) {}
+
+            override fun onBufferReceived(buffer: ByteArray?) {}
+
+            override fun onEndOfSpeech() {}
+
+            override fun onError(error: Int) {}
+
+            override fun onResults(results: Bundle?) {
+                val data: ArrayList<String> =
+                    results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>;
+                analyzeSpeech(data[0]);
+            }
+
+            override fun onPartialResults(partialResults: Bundle?) {}
+
+            override fun onEvent(eventType: Int, params: Bundle?) {}
+        })
+
+        listenButton = findViewById(R.id.listen);
+        listenButton.setOnTouchListener(
+            object : View.OnTouchListener {
+                override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                    event?.let {
+                        if (event.action == MotionEvent.ACTION_UP) {
+                            speechRecognizer.stopListening();
+                            Toast.makeText(baseContext, "Analizando...", Toast.LENGTH_SHORT).show();
+                        } else if (event.action == MotionEvent.ACTION_DOWN) {
+                            speechRecognizer.startListening(speechRecognizerIntent);
+                        }
+                    }
+                    return false;
+                }
+            })
+    }
+
+    private fun analyzeSpeech(speechResults: String) {
+        Toast.makeText(baseContext, speechResults, Toast.LENGTH_SHORT).show();
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        speechRecognizer.destroy();
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        validateDayTip(window.decorView.rootView)
+    }
+
+    private fun checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(android.Manifest.permission.RECORD_AUDIO),
+                REQ_CODE_SPEECH_INPUT
+            )
+        }
     }
 
     fun sendAboutUs(view: View) {
@@ -28,26 +126,50 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun validateDayTip() {
-        val sharedPreferences: SharedPreferences? = getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
+    private fun validateDayTip(view: View) {
+        val sharedPreferences: SharedPreferences? =
+            getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
         val day = sharedPreferences?.getString(getString(R.string.day_key), null)
         val df: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.US)
         val currentDate = df.format(Calendar.getInstance().time)
 
+        launchTipDayPopup(view);
         day?.let {
             if (currentDate.compareTo(it) != 0) {
                 // Muestro el popup de dennis UwU
+                launchTipDayPopup(view);
                 with(sharedPreferences.edit()) {
                     putString(getString(R.string.day_key), currentDate)
                     commit()
                 }
             }
-        }?:run {
+        } ?: run {
             // Muestro el popup de dennis UwU
+            launchTipDayPopup(view);
             with(sharedPreferences!!.edit()) {
                 putString(getString(R.string.day_key), currentDate)
                 commit()
             }
         }
+    }
+
+    private fun launchTipDayPopup(view: View) {
+        val inflater: LayoutInflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val popupView: View = inflater.inflate(R.layout.tip_day_popup, null)
+
+        val popupWindows = PopupWindow(
+            popupView,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            true
+        )
+        popupWindows.showAtLocation(view, Gravity.CENTER, 0, 0)
+
+        val button = popupView.findViewById<Button>(R.id.btnOk)
+        button.setOnClickListener { popupWindows.dismiss(); }
+    }
+
+    companion object {
+        private const val REQ_CODE_SPEECH_INPUT: Int = 100;
     }
 }
