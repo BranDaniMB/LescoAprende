@@ -20,9 +20,12 @@ import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.ucr.lescoaprende.database.Database
 import com.ucr.lescoaprende.database.DayTips
+import com.ucr.lescoaprende.database.WordDetails
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 class MainActivity : AppCompatActivity() {
@@ -95,7 +98,40 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun analyzeSpeech(speechResults: String) {
-        Toast.makeText(baseContext, speechResults, Toast.LENGTH_SHORT).show();
+        val counters: ArrayList<Int> = ArrayList();
+        val wordDetails = databaseRef.wordDetails;
+        val parts: List<String> = speechResults.split(" ");
+        var count: Int;
+        for (word: WordDetails in wordDetails) {
+            count = 0;
+            for (part: String in parts) {
+                if (word.name?.indexOf(part, 0, true) != -1) {
+                    count += 1;
+                }
+            }
+            counters.add(count);
+        }
+        println("*---------------------------------------------------------------*")
+        println(counters);
+        println("*---------------------------------------------------------------*")
+        println(parts);
+        counters.maxByOrNull { it }?.let {
+            if (it > 0) {
+                val temp = counters.indexOf(it);
+                if (temp > -1) {
+                    val intent = Intent(application, PhraseDetails::class.java)
+                    intent.putExtra("phrase", wordDetails[temp].name);
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(baseContext, "No hay coincidencias.", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(baseContext, "No hay coincidencias.", Toast.LENGTH_SHORT).show();
+            }
+        } ?: run {
+            Toast.makeText(baseContext, "No hay coincidencias.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     override fun onDestroy() {
@@ -148,7 +184,7 @@ class MainActivity : AppCompatActivity() {
                     commit()
                 }
             }
-        }?: run {
+        } ?: run {
             // Muestro el popup de dennis UwU
             launchTipDayPopup(view);
             with(sharedPreferences!!.edit()) {
@@ -190,7 +226,7 @@ class MainActivity : AppCompatActivity() {
                         commit()
                     }
                 }
-            }?:run {
+            } ?: run {
                 val tip = databaseRef.dayTips[0];
                 Glide.with(popupView).load(tip.image).into(image);
                 description.text = tip.description;
