@@ -14,7 +14,7 @@ import com.ucr.lescoaprende.objects.DictionaryCustomAdapter
 class Dictionary : AppCompatActivity() {
     private lateinit var dictionaryKitchenList: RecyclerView
     private lateinit var dictionaryMiscellaneousList: RecyclerView
-    private val DatabaseRef = Database.instance
+    private val databaseRef = Database.instance
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +33,7 @@ class Dictionary : AppCompatActivity() {
 
     private fun generateListKitchen(context: Context, activity: AppCompatActivity) {
         val temp: ArrayList<WordDetails> = ArrayList()
-        for (word in DatabaseRef.wordDetails) {
+        for (word in databaseRef.wordDetails) {
             if (word.type === WordClass.KITCHEN) {
                 temp.add(word);
             }
@@ -44,7 +44,7 @@ class Dictionary : AppCompatActivity() {
 
     private fun generateListMiscellaneous(context: Context, activity: AppCompatActivity) {
         val temp: ArrayList<WordDetails> = ArrayList()
-        for (word in DatabaseRef.wordDetails) {
+        for (word in databaseRef.wordDetails) {
             if (word.type === WordClass.MISCELLANEOUS) {
                 temp.add(word);
             }

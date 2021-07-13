@@ -7,6 +7,7 @@
     <string name="kitchen_phrase_2">*Ingrese frase*</string>
     <!-- Keys -->
     <string name="day_key">day_key</string>
+    <string name="day_list_key">day_list_key</string>
     <!-- About Us -->
     <string name="about_us">Acerca de</string>
     <string name="about_us_title">¿Quiénes somos?</string>

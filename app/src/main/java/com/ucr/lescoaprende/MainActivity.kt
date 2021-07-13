@@ -13,13 +13,13 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.ucr.lescoaprende.database.Database
+import com.ucr.lescoaprende.database.DayTips
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listenButton: Button;
     private lateinit var speechRecognizer: SpeechRecognizer
     private lateinit var speechRecognizerIntent: Intent;
+    private val databaseRef = Database.instance;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_LescoAprende)
         super.onCreate(savedInstanceState)
@@ -102,8 +104,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        validateDayTip(window.decorView.rootView)
+        super.onAttachedToWindow();
+        databaseRef.activity = this;
     }
 
     private fun checkPermission() {
@@ -126,6 +128,10 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun dayTip() {
+        validateDayTip(window.decorView.rootView)
+    }
+
     private fun validateDayTip(view: View) {
         val sharedPreferences: SharedPreferences? =
             getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
@@ -133,7 +139,6 @@ class MainActivity : AppCompatActivity() {
         val df: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.US)
         val currentDate = df.format(Calendar.getInstance().time)
 
-        launchTipDayPopup(view);
         day?.let {
             if (currentDate.compareTo(it) != 0) {
                 // Muestro el popup de dennis UwU
@@ -143,7 +148,7 @@ class MainActivity : AppCompatActivity() {
                     commit()
                 }
             }
-        } ?: run {
+        }?: run {
             // Muestro el popup de dennis UwU
             launchTipDayPopup(view);
             with(sharedPreferences!!.edit()) {
@@ -156,6 +161,45 @@ class MainActivity : AppCompatActivity() {
     private fun launchTipDayPopup(view: View) {
         val inflater: LayoutInflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView: View = inflater.inflate(R.layout.tip_day_popup, null)
+        val sharedPreferences: SharedPreferences? =
+            getSharedPreferences(resources.getString(R.string.app_name), Context.MODE_PRIVATE)
+        val daily: String? = sharedPreferences?.getString(getString(R.string.day_list_key), null);
+        val image = popupView.findViewById<ImageView>(R.id.imgPopup);
+        val description = popupView.findViewById<TextView>(R.id.descriptionPopup);
+
+        if (sharedPreferences != null) {
+            daily?.let {
+                var noMoreLeft = true;
+                for (tip: DayTips in databaseRef.dayTips) {
+                    if (it.indexOf(tip.tip, 0, false) == -1) {
+                        noMoreLeft = false;
+                        Glide.with(popupView).load(tip.image).into(image);
+                        description.text = tip.description;
+                        with(sharedPreferences.edit()) {
+                            putString(getString(R.string.day_list_key), it + "&" + tip.tip)
+                            commit()
+                        }
+                    }
+                }
+                if (noMoreLeft) {
+                    val tip = databaseRef.dayTips[0];
+                    Glide.with(popupView).load(tip.image).into(image);
+                    description.text = tip.description;
+                    with(sharedPreferences.edit()) {
+                        putString(getString(R.string.day_list_key), tip.tip);
+                        commit()
+                    }
+                }
+            }?:run {
+                val tip = databaseRef.dayTips[0];
+                Glide.with(popupView).load(tip.image).into(image);
+                description.text = tip.description;
+                with(sharedPreferences.edit()) {
+                    putString(getString(R.string.day_list_key), tip.tip);
+                    commit()
+                }
+            }
+        }
 
         val popupWindows = PopupWindow(
             popupView,
