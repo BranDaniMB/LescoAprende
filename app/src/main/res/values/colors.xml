@@ -4,7 +4,7 @@
     <color name="blue_secondary">#2196f3</color>
     <color name="blue_tertiary">#1d89e4</color>
     <color name="blue_dark">#0d47a1</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
     <color name="background">#282828</color>
 </resources>

@@ -111,10 +111,6 @@ class MainActivity : AppCompatActivity() {
             }
             counters.add(count);
         }
-        println("*---------------------------------------------------------------*")
-        println(counters);
-        println("*---------------------------------------------------------------*")
-        println(parts);
         counters.maxByOrNull { it }?.let {
             if (it > 0) {
                 val temp = counters.indexOf(it);
@@ -175,7 +171,8 @@ class MainActivity : AppCompatActivity() {
         val df: DateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.US)
         val currentDate = df.format(Calendar.getInstance().time)
 
-        day?.let {
+        launchTipDayPopup(view);
+        /*day?.let {
             if (currentDate.compareTo(it) != 0) {
                 // Muestro el popup de dennis UwU
                 launchTipDayPopup(view);
@@ -191,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                 putString(getString(R.string.day_key), currentDate)
                 commit()
             }
-        }
+        }*/
     }
 
     private fun launchTipDayPopup(view: View) {
